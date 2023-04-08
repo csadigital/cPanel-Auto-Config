@@ -1,7 +1,5 @@
 # cPanel-Auto-Config
 
-# CPanel configuration script
-
 This script installs and configures cPanel according to the best practices.
 
 ## Installation

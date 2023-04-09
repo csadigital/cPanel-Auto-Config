@@ -1,8 +1,7 @@
 # cPanel-Auto-Config
 
-This script installs and configures cPanel according to the best practices.
-
-## Installation
+cPanel'i en iyi uygulamalara göre kurar ve yapılandırır.
+## Kurulum
 
 ```bash
 wget https://raw.githubusercontent.com/csadigital/cPanel-Auto-Config/main/install_cpanel.sh -O ./install_cpanel.sh && bash install_cpanel.sh
@@ -12,24 +11,26 @@ wget https://raw.githubusercontent.com/csadigital/cPanel-Auto-Config/main/instal
 
 ## Tasks that you perform:
 
-#### 1-Network Configuration Optimization.
-#### 2-Configure the DNS.
-#### 3-Install the "Base" package and other recommended ones.
-#### 4-SSH configuration optimization.
-#### 5-Install cPanel if it does not detect it.
-#### 6-Configure Tweak Settings with recommended values.
-#### 7-Configure AWStats as a statistics system.
-#### 8-Disable compilers.
-#### 9-Configure minimum password complexity.
-#### 10-Enable php open_basedir protection.
-#### 11-Disable Shell Fork Bomb Protection (generates problems with limits on servers with high consumption).
-#### 12-Disable SMTP Restrictions (after using SMTP_BLOCK from CSF).
-#### 13-Configure Apache with recommended values.
-#### 14-Configure Exim with recommended values.
-#### 15-Configure Pro-FTPd with the recommended values.
-#### 16-Configure the "disabled" and "default" features with the recommended values.
-#### 17-Install and configure CSF Firewall with recommended values.
-#### 18-Configure recommended MySQL settings.
-#### 19-Configure all php.ini with the recommended values.
-#### 20-Create the "default" package with the recommended values.
-#### 21-Synchronize the server time with an NTP server.
+cpanel+litespeed+cloudlinux+imunify360+Softaculous
+Sunucu paket / kernel güncellemesi
+Ram'e uygun swap  
+php 5.4+ & mariadb 10.3  
+php opcache, suhosin, imagick 
+Litespeed Optimizasyonu
+MariaDB yükünün düşürülmesi
+HTTP/2 Aktivasyonu
+GZIP Aktivasyonu
+mod_brotli Aktivasyonu
+mod_security aktif + IM360 WAF kuralları  
+CSF Yazılımsal firewall kurulumu ve saldırı önleme 
++Cloudflare ipv4 ve ipv6 adresleri  
+Güvenlik Optimizesi
+CGI, Perl ve Python Güvenliği
+Mod_userdir Düzenleme
+Uzak MySQL Engelleme/kapatma (3306)
+Dizinler arası geçişi kapatma
+Php.ini fonksiyonları düzenleme
+Symlink engelleme
+SSH güvenliği (port değişimi, dns kullanımı)
+Imunify360 yapılandırılması
+

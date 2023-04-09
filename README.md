@@ -7,9 +7,9 @@
 wget https://raw.githubusercontent.com/csadigital/cPanel-Auto-Config/main/install_cpanel.sh -O ./install_cpanel.sh && bash install_cpanel.sh
 ```
 
-## NOTE: Install only on CentOS 7 Minimal
+## NOTE: Centos 7 Minimal Sürüm Üzerinde Çalıştırın.
 
-## Tasks that you perform:
+## Yaptığı kurulum optimizasyonlar.
 
 ## cpanel+litespeed+cloudlinux+imunify360+Softaculous
 ## Sunucu paket / kernel güncellemesi

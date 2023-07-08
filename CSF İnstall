@@ -1,0 +1,36 @@
+#!/bin/bash
+
+echo -n "CSF not detected! Would you like to install? (y/n) ";
+read yesno < /dev/tty
+
+if [ "x$yesno" = "xy" ] ; then
+    # Download and extract CSF files
+    wget https://download.configserver.com/csf.tgz -O /usr/src/csf.tgz &>/dev/null
+    tar -xzf /usr/src/csf.tgz -C /usr/src && cd /usr/src/csf && sh install.sh &>/dev/null
+    
+    # Remove firewalld and install required packages
+    yum remove firewalld -y
+    yum -y install iptables-services wget perl unzip net-tools perl-libwww-perl perl-LWP-Protocol-https perl-GDGraph
+    
+    # Download CSF configuration file
+    wget https://raw.githubusercontent.com/csadigital/cPanel-Auto-Config/main/csf.conf -O /etc/csf/csf.conf &>/dev/null
+    
+    # Clean up temporary files
+    rm -rf /usr/src/csf /usr/src/csf.tgz /usr/src/error_log
+    
+    # Set up iptables and enable firewall
+    touch /etc/sysconfig/iptables
+    touch /etc/sysconfig/iptables6
+    systemctl start iptables
+    systemctl start ip6tables
+    systemctl enable iptables
+    systemctl enable ip6tables
+    
+    # Restart CSF and LFD
+    systemctl restart csf &>/dev/null
+    systemctl restart lfd &>/dev/null
+    
+    echo "CSF has been installed and configured successfully."
+else
+    echo "CSF installation canceled by the user."
+fi

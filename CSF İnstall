@@ -29,4 +29,8 @@ systemctl enable ip6tables
 systemctl restart csf &>/dev/null
 systemctl restart lfd &>/dev/null
 
+# Enable CSF and LFD on boot
+chkconfig --levels 235 csf on
+chkconfig --levels 235 lfd on
+
 echo "CSF Kurulumu başarıyla tamamlandı ve Firewall Ayarları yapıldı. CSA Digital"

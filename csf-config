@@ -12,7 +12,7 @@ yum -y install iptables-services wget perl unzip net-tools perl-libwww-perl perl
 wget https://raw.githubusercontent.com/csadigital/cPanel-Auto-Config/main/csf.conf -O /etc/csf/csf.conf &>/dev/null
 
 # Download additional allow IP file
-wget https://raw.githubusercontent.com/csadigital/cPanel-Auto-Config/main/allow-ip -O /etc/csf/allow-ip &>/dev/null
+wget https://raw.githubusercontent.com/csadigital/cPanel-Auto-Config/main/csf.allow -O /etc/csf/csf.allow &>/dev/null
 
 # Clean up temporary files
 rm -rf /usr/src/csf /usr/src/csf.tgz /usr/src/error_log

@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Disable IPv6
+echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
+echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
+echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
+sysctl -p
+
 # Download and extract CSF files
 wget https://download.configserver.com/csf.tgz -O /usr/src/csf.tgz &>/dev/null
 tar -xzf /usr/src/csf.tgz -C /usr/src && cd /usr/src/csf && sh install.sh &>/dev/null
@@ -11,8 +17,13 @@ yum -y install iptables-services wget perl unzip net-tools perl-libwww-perl perl
 # Download CSF configuration file
 wget https://raw.githubusercontent.com/csadigital/cPanel-Auto-Config/main/csf.conf -O /etc/csf/csf.conf &>/dev/null
 
-# Download additional allow IP file
-wget https://raw.githubusercontent.com/csadigital/cPanel-Auto-Config/main/csf.allow -O /etc/csf/csf.allow &>/dev/null
+# Add Cloudflare IP ranges to CSF allow file
+curl https://www.cloudflare.com/ips-v4 | tee -a /etc/csf/csf.allow
+curl https://www.cloudflare.com/ips-v6 | tee -a /etc/csf/csf.allow
+
+# Add additional IP addresses to CSF allow file
+echo "123.456.78.90" >> /etc/csf/csf.allow
+echo "111.222.333.444" >> /etc/csf/csf.allow
 
 # Clean up temporary files
 rm -rf /usr/src/csf /usr/src/csf.tgz /usr/src/error_log
@@ -24,6 +35,14 @@ systemctl start iptables
 systemctl start ip6tables
 systemctl enable iptables
 systemctl enable ip6tables
+
+# Configure CSF for effective anti-DDoS settings
+sed -i 's/^TESTING = "1"/TESTING = "0"/' /etc/csf/csf.conf
+sed -i 's/^LF_SCRIPT_ALERT = "1"/LF_SCRIPT_ALERT = "0"/' /etc/csf/csf.conf
+sed -i 's/^CT_LIMIT = .*/CT_LIMIT = "100"/' /etc/csf/csf.conf
+sed -i 's/^CT_INTERVAL = .*/CT_INTERVAL = "30"/' /etc/csf/csf.conf
+sed -i 's/^CT_PORTS = .*/CT_PORTS = "80,443"/' /etc/csf/csf.conf
+sed -i 's/^CT_STATES = .*/CT_STATES = "SYN_SENT"/' /etc/csf/csf.conf
 
 # Restart CSF and LFD
 systemctl restart csf &>/dev/null

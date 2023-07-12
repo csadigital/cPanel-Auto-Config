@@ -3,6 +3,14 @@
 ## cPanel'i en iyi uygulamalara göre kurar ve yapılandırır.
 ## Kurulum
 
+
+
+
+
+
+
+T
+
 ```bash
 wget https://raw.githubusercontent.com/csadigital/cPanel-Auto-Config/main/install_cpanel.sh -O ./install_cpanel.sh && bash install_cpanel.sh
 ```

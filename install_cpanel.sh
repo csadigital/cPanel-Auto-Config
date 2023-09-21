@@ -20,7 +20,7 @@ yum erase NetworkManager -y
 yum install nano wget epel-release -y
 yum install screen -y
 yum clean all
-echo "####### Required Files Installation Successful########"
+echo "####### CSA Digital #######"
 sleep 3
 mkdir /root/cpanel_profile
 touch /root/cpanel_profile/cpanel.config
@@ -66,7 +66,7 @@ else
 	hostnamectl set-hostname $(cat /root/hostname)
 	rm -f /root/hostname
 fi
-echo "####### END INSTALLING CPANEL #######"
+echo "####### CSA Digital #######"
 
 	if [ -d /usr/local/cpanel/whostmgr/docroot/cgi/configserver/csf ] ; then
 			echo "CSF is already installed on the server!";
@@ -801,9 +801,15 @@ pm_max_children: 20
 pm_max_requests: 40
 php_admin_value_disable_functions : { present_ifdefault: 0 }
 EOF
+
+echo "disable_functions = shell_exec,symlink,restore_ini,hopenbasedir,f_open,system,dl,passthru,cat exec,popen,proc_close,proc_get_status,proc_nice,proc_open,escapeshellcmd,escapeshellarg,show_source,posix_mkfifo,mysql_list_dbs,get_current_user,getmyuid,pconnect,link,symlink,pcntl_exec,leak,apache_child_terminate,posix_kill,posix_setpgid,posix_setsid,posix_setuid,proc_terminate,syslog,fpassthru,socket_select,socket_create,socket_create_listen,socket_create_pair,socket_listen,socket_accept,socket_bind,foreach,socket_strerror,pcntl_fork,pcntl_signal,pcntl_waitpid,pcntl_wexitstatus,pcntl_wifexited,pcntl_wifsignaled,pcntl_wifstopped,pcntl_wstopsig,pcntl_wtermsig,openlog,apache_get_modules,apache_get_version,apache_getenv,apache_note,apache_setenv,virtual,mail,phpmail" >> /var/cpanel/ApachePHPFPM/system_pool_defaults.yaml
+
 /usr/local/cpanel/scripts/php_fpm_config --rebuild
+
 /scripts/restartsrv_apache_php_fpm
+
 echo "Configuring Handlers..."
+
 whmapi1 php_set_handler version=ea-php55 handler=cgi
 whmapi1 php_set_handler version=ea-php56 handler=cgi
 whmapi1 php_set_handler version=ea-php70 handler=cgi

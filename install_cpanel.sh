@@ -14,9 +14,6 @@ sleep 10
 echo "####### cPanel Auto Config ##########"
 echo "####### Disabling yum-cron...########"
 yum erase yum-cron -y
-systemctl stop NetworkManager.service
-systemctl disable NetworkManager.service
-yum erase NetworkManager -y
 yum install nano wget epel-release -y
 yum install screen -y
 yum clean all
@@ -874,8 +871,6 @@ sed  -i '/\[mysqld\]/a tmp_table_size=192M' /etc/my.cnf
 sed  -i '/\[mysqld\]/a max_heap_table_size=256M' /etc/my.cnf
 sed  -i '/\[mysqld\]/a # WNPower pre-configured values' /etc/my.cnf
 /scripts/restartsrv_mysql
-echo "Updating a MariaDB 10.3..."
-whmapi1 start_background_mysql_upgrade version=10.3
 echo "Configuring disabled features..."
 whmapi 1 update_featurelist featurelist = disabled api_shell = 0 agora = 0 analog = 0 boxtrapper = 0 traceaddy = 0 modules-php-pear = 0 modules-perl = 0 modules-ruby = 0 pgp = 0 phppgadmin = 0 postgres = 0 ror = 0 serverstatus = 0 webalizer = 0 clamavconnector_scan = 0 lists = 0
 echo "defaultSetting features..."
@@ -889,9 +884,10 @@ yum install ntpdate -y
 echo "Synchronizing date with pool.ntp.org..."
 ntpdate 0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org 0.south-america.pool.ntp.org
 if [ -f /usr/share/zoneinfo/America/New_York ]; then
-        echo "Configuring TIME ZONE America/New_York..."
-        mv /etc/localtime /etc/localtime.old
-        ln -s /usr/share/zoneinfo/America/New_York /etc/localtime
+    echo "Saat dilimi Europe/Istanbul olarak ayarlanıyor..."
+sudo mv /etc/localtime /etc/localtime.old
+sudo ln -sf /usr/share/zoneinfo/Europe/Istanbul /etc/localtime
+
 fi
 echo "Setting BIOS date..."
 hwclock -r

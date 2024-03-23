@@ -21,7 +21,7 @@ echo "####### CSA Digital #######"
 sleep 3
 mkdir /root/cpanel_profile
 touch /root/cpanel_profile/cpanel.config
-echo "mysql-version=10.3" > /root/cpanel_profile/cpanel.config
+echo "mysql-version=10.6" > /root/cpanel_profile/cpanel.config
 echo "#########Customization Has been Completed########"
 
 echo "######### CONFIGURING DNS AND NETWORK ########"
@@ -250,14 +250,14 @@ if [ -d /usr/local/cpanel/whostmgr/docroot/cgi/softaculous ] ; then
 			if [ "x$yesno" = "xy" ] ; then
 				touch /root/lsws-install.sh
 				echo "serial_no="TRIAL"
-php_suexec="2"
-port_offset="1000"
-admin_user="csadigital"
-admin_pass="csadigital2023"
-admin_email="lws@localhost"
-easyapache_integration="1"
-auto_switch_to_lsws="1"
-deploy_lscwp="0"" > "/root/lsws.options";
+				php_suexec="10"
+				port_offset="1000"
+				admin_user="csadigital"
+				admin_pass="csadigital2023"
+				admin_email="lws@localhost"
+				easyapache_integration="1"
+				auto_switch_to_lsws="1"
+				deploy_lscwp="0"" > "/root/lsws.options";
 				/usr/bin/wget https://get.litespeed.sh -O /root/lsws-install.sh &>/dev/null
 				/usr/bin/sh /root/lsws-install.sh TRIAL &>/dev/null
 				/usr/bin/wget https://litespeedtech.com/packages/cpanel/buildtimezone_ea4.tar.gz -O /root/buildtimezone_ea4.tar.gz &>/dev/null
